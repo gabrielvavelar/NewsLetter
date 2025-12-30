@@ -1,7 +1,9 @@
 package io.github.gabrielvavelar.NewsLetter.service.scrapper.impl;
 
+import io.github.gabrielvavelar.NewsLetter.exception.NewsScrapingException;
 import io.github.gabrielvavelar.NewsLetter.model.NewsArticle;
 import io.github.gabrielvavelar.NewsLetter.service.scrapper.NewsFetcher;
+import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class G1WebScraper implements NewsFetcher {
     @Override
     public List<NewsArticle> fetchLatestNews(int limit) {
@@ -37,14 +40,14 @@ public class G1WebScraper implements NewsFetcher {
                     articles.add(new NewsArticle(title, content, url));
 
                 } catch (Exception e) {
-                    throw new RuntimeException("Scraping error" + url, e);
+                    log.warn("Failed to process article {}", url, e);
                 }
             }
+
             return articles;
 
         } catch (Exception e) {
-            throw new RuntimeException("Scraping error", e);
+            throw new NewsScrapingException("Scraping error", e);
         }
     }
-
 }

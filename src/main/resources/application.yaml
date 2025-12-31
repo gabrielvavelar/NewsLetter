@@ -2,16 +2,25 @@
     application:
       name: NewsLetter
 
+    datasource:
+      url: ${DB_HOST}
+      username: ${DB_USERNAME}
+      password: ${DB_PASSWORD}
+
+    jpa:
+      hibernate:
+        ddl-auto: update
+
     mail:
-      host: ${host}
+      host: ${MAIL_HOST}
       port: 587
-      username: ${username}
-      password: ${password}
+      username: ${MAIL_USERNAME}
+      password: ${MAIL_PASSWORD}
       properties:
         mail.smtp.auth: true
         mail.smtp.starttls.enable: true
 
   gemini:
     api:
-      api-key: ${GEMINI_KEY}
-      model: ${GEMINI_MODEL}
+      api-key: ${API_KEY}
+      model: ${API_MODEL}

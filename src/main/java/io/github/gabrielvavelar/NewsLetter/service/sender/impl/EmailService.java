@@ -19,13 +19,13 @@ public class EmailService implements MessageSender {
     private String sender;
 
     @Override
-    public void send(String content) {
+    public void send(String content, String email) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
             message.setFrom(sender);
             message.setSubject("Resumo diário");
             message.setText(content);
-            message.setTo();
+            message.setTo(email);
 
             mailSender.send(message);
         }

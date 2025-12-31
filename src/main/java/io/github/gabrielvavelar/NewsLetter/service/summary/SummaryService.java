@@ -32,7 +32,7 @@ public class SummaryService {
 
             if(response == null || response.text() == null || response.text().isBlank()){
                throw new SummaryGenerationException("Gemini returned an empty response");
-               }
+            }
 
             return response.text();
         }

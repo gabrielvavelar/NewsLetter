@@ -1,7 +1,6 @@
-package io.github.gabrielvavelar.NewsLetter.service.scrapper;
+package io.github.gabrielvavelar.NewsLetter.service.scraper;
 
 import io.github.gabrielvavelar.NewsLetter.model.NewsArticle;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

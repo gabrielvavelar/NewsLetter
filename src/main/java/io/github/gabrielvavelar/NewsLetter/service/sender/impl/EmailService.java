@@ -16,13 +16,13 @@ public class EmailService implements MessageSender {
     private final JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
-    private String remetente;
+    private String sender;
 
     @Override
     public void send(String content) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(remetente);
+            message.setFrom(sender);
             message.setSubject("Resumo diário");
             message.setText(content);
             message.setTo();

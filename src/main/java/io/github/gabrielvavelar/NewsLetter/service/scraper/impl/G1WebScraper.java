@@ -1,8 +1,8 @@
-package io.github.gabrielvavelar.NewsLetter.service.scrapper.impl;
+package io.github.gabrielvavelar.NewsLetter.service.scraper.impl;
 
 import io.github.gabrielvavelar.NewsLetter.exception.NewsScrapingException;
 import io.github.gabrielvavelar.NewsLetter.model.NewsArticle;
-import io.github.gabrielvavelar.NewsLetter.service.scrapper.NewsFetcher;
+import io.github.gabrielvavelar.NewsLetter.service.scraper.NewsFetcher;
 import lombok.extern.slf4j.Slf4j;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -14,6 +14,7 @@ import java.util.List;
 @Service
 @Slf4j
 public class G1WebScraper implements NewsFetcher {
+
     @Override
     public List<NewsArticle> fetchLatestNews(int limit) {
         try {

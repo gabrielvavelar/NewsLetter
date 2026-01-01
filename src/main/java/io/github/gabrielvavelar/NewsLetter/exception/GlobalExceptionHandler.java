@@ -2,6 +2,7 @@ package io.github.gabrielvavelar.NewsLetter.exception;
 
 import io.github.gabrielvavelar.NewsLetter.dto.ErrorResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.time.Instant;
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NewsScrapingException.class)
@@ -138,6 +140,8 @@ public class GlobalExceptionHandler {
                 message,
                 path
         );
+
+        log.error("Unexpected error {}: {}", path, ex.getMessage(), ex);
 
         return ResponseEntity.status(status).body(error);
     }

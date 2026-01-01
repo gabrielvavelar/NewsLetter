@@ -83,6 +83,23 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
+    @ExceptionHandler(EmailDoesntExistsException.class)
+    public ResponseEntity<ErrorResponseDto> handleEmailDoesntExistsException(Exception ex, HttpServletRequest request){
+
+        HttpStatus status = HttpStatus.NOT_FOUND;
+
+        ErrorResponseDto error = new ErrorResponseDto(
+                Instant.now(),
+                status.value(),
+                status.getReasonPhrase(),
+                ex.getMessage(),
+                request.getRequestURI()
+        );
+
+        return ResponseEntity.status(status).body(error);
+    }
+
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDto> handleValidationException(MethodArgumentNotValidException ex, HttpServletRequest request){
 

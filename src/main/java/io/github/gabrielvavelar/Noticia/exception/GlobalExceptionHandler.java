@@ -85,8 +85,8 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(status).body(error);
     }
 
-    @ExceptionHandler(EmailDoesntExistsException.class)
-    public ResponseEntity<ErrorResponseDto> handleEmailDoesntExistsException(Exception ex, HttpServletRequest request){
+    @ExceptionHandler(InvalidUnsubscribeTokenException.class)
+    public ResponseEntity<ErrorResponseDto> handleInvalidUnsubscribeTokenException(Exception ex, HttpServletRequest request){
 
         HttpStatus status = HttpStatus.NOT_FOUND;
 

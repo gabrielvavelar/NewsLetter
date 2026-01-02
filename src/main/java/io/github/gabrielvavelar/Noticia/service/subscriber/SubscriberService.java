@@ -3,7 +3,7 @@ package io.github.gabrielvavelar.Noticia.service.subscriber;
 import io.github.gabrielvavelar.Noticia.dto.SubscriberRequestDto;
 import io.github.gabrielvavelar.Noticia.dto.SubscriberResponseDto;
 import io.github.gabrielvavelar.Noticia.exception.EmailAlreadyExistsException;
-import io.github.gabrielvavelar.Noticia.exception.EmailDoesntExistsException;
+import io.github.gabrielvavelar.Noticia.exception.InvalidUnsubscribeTokenException;
 import io.github.gabrielvavelar.Noticia.mapper.SubscriberMapper;
 import io.github.gabrielvavelar.Noticia.model.Subscriber;
 import io.github.gabrielvavelar.Noticia.repository.SubscriberRepository;
@@ -22,7 +22,7 @@ public class SubscriberService {
 
     public SubscriberResponseDto subscribe(SubscriberRequestDto requestDto) {
         if(repository.existsByEmail(requestDto.email())) {
-            throw new EmailAlreadyExistsException("Email already exists");
+            throw new EmailAlreadyExistsException("Email already registered");
         }
 
         Subscriber subscriber = mapper.toEntity(requestDto);
@@ -37,7 +37,7 @@ public class SubscriberService {
     public void unsubscribe(UUID unsubscribeToken) {
         Subscriber subscriber = repository.findByUnsubscribeToken(unsubscribeToken)
                 .orElseThrow(() ->
-                        new EmailDoesntExistsException("Email doesn't exists")
+                        new InvalidUnsubscribeTokenException("Invalid unsubscribe token")
                 );
 
         if (subscriber.isActive()) {

@@ -27,7 +27,7 @@ public class SummaryPromptBuilder {
         StringBuilder sb = new StringBuilder();
         for (NewsArticle article : articles) {
             sb.append(article.getTitle()).append("\n");
-            sb.append(article.getDescription()).append("\n");
+            sb.append(article.getContent()).append("\n");
         }
         return sb.toString();
     }

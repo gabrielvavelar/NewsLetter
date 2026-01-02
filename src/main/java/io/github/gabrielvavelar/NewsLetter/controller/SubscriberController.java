@@ -3,6 +3,7 @@ package io.github.gabrielvavelar.NewsLetter.controller;
 import io.github.gabrielvavelar.NewsLetter.dto.SubscriberRequestDto;
 import io.github.gabrielvavelar.NewsLetter.dto.SubscriberResponseDto;
 import io.github.gabrielvavelar.NewsLetter.service.subscriber.SubscriberService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/subscribers")
 @RequiredArgsConstructor
+@Tag(name = "Subscribers")
 public class SubscriberController {
     private final SubscriberService service;
 

@@ -14,20 +14,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("/subscribers")
 @RequiredArgsConstructor
 @Tag(name = "Subscribers")
 public class SubscriberController {
     private final SubscriberService service;
 
-    @PostMapping
+    @PostMapping("/subscribe")
     public ResponseEntity<SubscriberResponseDto> subscribe(@RequestBody @Valid SubscriberRequestDto requestDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(service.subscribe(requestDto));
     }
 
-    @GetMapping("/{unsubscribeToken}")
+    @GetMapping("/unsubscribe/{unsubscribeToken}")
     public String unsubscribe(@PathVariable UUID unsubscribeToken) {
         service.unsubscribe(unsubscribeToken);
         return "unsubscribe-success";

@@ -14,12 +14,17 @@ public class PromptUtil {
     
     public static String basePrompt() {
         return """
-                Você é um editor de newsletter experiente;
-                Abaixo estão os artigos coletados hoje:
+                Resuma as noticias coletadas hoje:
+                
+                Regras:
+                - Escreva sempre em português do Brasil
+                - Utilize exclusivamente as informações presentes no texto fornecido
+                - Não utilize emojis
+                - Não use formatação especial, como negrito, listas ou markdown
+                - Cada resumo deve conter um título
+                - Não mencione autores
                 
                 %s
-                
-                Com base neles, escreva um resumo atraente para os inscritos.
                 """;
     }
 

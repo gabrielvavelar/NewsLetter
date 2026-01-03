@@ -1,10 +1,7 @@
 package io.github.gabrielvavelar.Noticia.service.subscriber;
 
-import io.github.gabrielvavelar.Noticia.dto.SubscriberRequestDto;
-import io.github.gabrielvavelar.Noticia.dto.SubscriberResponseDto;
 import io.github.gabrielvavelar.Noticia.exception.EmailAlreadyExistsException;
 import io.github.gabrielvavelar.Noticia.exception.InvalidUnsubscribeTokenException;
-import io.github.gabrielvavelar.Noticia.mapper.SubscriberMapper;
 import io.github.gabrielvavelar.Noticia.model.Subscriber;
 import io.github.gabrielvavelar.Noticia.repository.SubscriberRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,20 +15,17 @@ import java.util.UUID;
 public class SubscriberService {
 
     private final SubscriberRepository repository;
-    private final SubscriberMapper mapper;
 
-    public SubscriberResponseDto subscribe(SubscriberRequestDto requestDto) {
-        if(repository.existsByEmail(requestDto.email())) {
+    public void subscribe(String email) {
+        if(repository.existsByEmail(email)) {
             throw new EmailAlreadyExistsException("Email already registered");
         }
 
-        Subscriber subscriber = mapper.toEntity(requestDto);
-
+        Subscriber subscriber = new Subscriber();
+        subscriber.setEmail(email);
         subscriber.setUnsubscribeToken(UUID.randomUUID());
 
-        Subscriber saved = repository.save(subscriber);
-
-        return mapper.toResponse(saved);
+        repository.save(subscriber);
     }
 
     public void unsubscribe(UUID unsubscribeToken) {

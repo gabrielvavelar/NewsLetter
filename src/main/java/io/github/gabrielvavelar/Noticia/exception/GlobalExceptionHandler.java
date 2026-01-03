@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.Instant;
 
@@ -86,10 +87,15 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(InvalidUnsubscribeTokenException.class)
-    public ResponseEntity<ErrorResponseDto> handleInvalidUnsubscribeTokenException(Exception ex, HttpServletRequest request){
+    public Object handleInvalidUnsubscribeTokenException(Exception ex, HttpServletRequest request) {
 
-        HttpStatus status = HttpStatus.NOT_FOUND;
+        if (request.getRequestURI().contains("/subscribers/")) {
+            ModelAndView mav = new ModelAndView("unsubscribe-error");
+            mav.addObject("message", ex.getMessage());
+            return mav;
+        }
 
+        HttpStatus status = HttpStatus.BAD_REQUEST;
         ErrorResponseDto error = new ErrorResponseDto(
                 Instant.now(),
                 status.value(),
@@ -100,7 +106,6 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(status).body(error);
     }
-
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseDto> handleValidationException(MethodArgumentNotValidException ex, HttpServletRequest request){

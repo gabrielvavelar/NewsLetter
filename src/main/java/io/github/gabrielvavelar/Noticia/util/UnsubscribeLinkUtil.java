@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class UnsubscribeLinkUtil {
 
-    private static final String BASE_URL = "http://localhost:8080/subscribers/";
+    private static final String BASE_URL = "http://localhost:8080/unsubscribe?token=";
 
     private UnsubscribeLinkUtil() {}
 

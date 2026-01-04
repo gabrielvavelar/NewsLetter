@@ -26,9 +26,9 @@ public class SubscriberController {
                 .body(service.subscribe(requestDto));
     }
 
-    @DeleteMapping("unsubscribe/{unsubscribeToken}")
-    public ResponseEntity<Void> unsubscribe(@PathVariable UUID unsubscribeToken) {
+    @DeleteMapping("unsubscribe")
+    public ResponseEntity<Void> unsubscribe(@RequestParam UUID unsubscribeToken) {
         service.unsubscribe(unsubscribeToken);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

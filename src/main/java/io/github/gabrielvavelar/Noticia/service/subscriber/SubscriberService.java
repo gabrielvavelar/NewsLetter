@@ -1,5 +1,6 @@
 package io.github.gabrielvavelar.Noticia.service.subscriber;
 
+import io.github.gabrielvavelar.Noticia.dto.MessageDto;
 import io.github.gabrielvavelar.Noticia.dto.SubscriberRequestDto;
 import io.github.gabrielvavelar.Noticia.dto.SubscriberResponseDto;
 import io.github.gabrielvavelar.Noticia.exception.EmailAlreadyExistsException;
@@ -35,8 +36,8 @@ public class SubscriberService {
 
         Subscriber saved = repository.save(subscriber);
 
-        String content = emailComposer.composeWelcomeEmail(subscriber);
-        messageSender.send(subscriber, content);
+        MessageDto message = emailComposer.composeWelcomeEmail(subscriber);
+        messageSender.send(subscriber, message);
 
         return mapper.toResponse(saved);
     }

@@ -1,5 +1,6 @@
 package io.github.gabrielvavelar.Noticia.service.sender.email;
 
+import io.github.gabrielvavelar.Noticia.dto.MessageDto;
 import io.github.gabrielvavelar.Noticia.model.Subscriber;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,17 +12,20 @@ import org.thymeleaf.context.Context;
 public class EmailComposer {
     private final TemplateEngine templateEngine;
 
-    public String composeWelcomeEmail(Subscriber subscriber) {
+    public MessageDto composeWelcomeEmail(Subscriber subscriber) {
         Context context = new Context();
 
         context.setVariable("unsubscribeToken", subscriber.getUnsubscribeToken());
 
         String body = templateEngine.process("welcome-email", context);
 
-        return body;
+        return new MessageDto(
+                "Seja bem vindo ao Notic.ia",
+                body
+        );
     }
 
-    public String composeNewsSummaryEmail(Subscriber subscriber,String newsSummary) {
+    public MessageDto composeNewsSummaryEmail(Subscriber subscriber,String newsSummary) {
         Context context = new Context();
 
         context.setVariable("newsSummary", newsSummary);
@@ -29,6 +33,9 @@ public class EmailComposer {
 
         String body = templateEngine.process("news-summary-email", context);
 
-        return body;
+        return new MessageDto(
+                "Resumo diário de noticias",
+                body
+        );
     }
 }

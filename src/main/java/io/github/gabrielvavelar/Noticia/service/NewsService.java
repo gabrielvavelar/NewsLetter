@@ -1,5 +1,6 @@
 package io.github.gabrielvavelar.Noticia.service;
 
+import io.github.gabrielvavelar.Noticia.dto.MessageDto;
 import io.github.gabrielvavelar.Noticia.model.Subscriber;
 import io.github.gabrielvavelar.Noticia.service.scraper.NewsFetcher;
 import io.github.gabrielvavelar.Noticia.service.sender.MessageSender;
@@ -24,8 +25,8 @@ public class NewsService {
         String summary = summaryService.generateSummary(newsFetcher.fetchLatestNews(20));
 
         for(Subscriber subscriber : subscribers) {
-            String content = emailComposer.composeNewsSummaryEmail(subscriber, summary);
-            messageSender.send(subscriber, content);
+            MessageDto message = emailComposer.composeNewsSummaryEmail(subscriber, summary);
+            messageSender.send(subscriber, message);
         }
     }
 }

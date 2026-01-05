@@ -1,5 +1,6 @@
 package io.github.gabrielvavelar.Noticia.service.sender.email.impl;
 
+import io.github.gabrielvavelar.Noticia.dto.MessageDto;
 import io.github.gabrielvavelar.Noticia.model.Subscriber;
 import io.github.gabrielvavelar.Noticia.service.sender.MessageSender;
 import jakarta.mail.internet.MimeMessage;
@@ -22,15 +23,15 @@ public class EmailService implements MessageSender {
     private String sender;
 
     @Override
-    public void send(Subscriber subscriber, String content) {
+    public void send(Subscriber subscriber, MessageDto message) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper mimeHelper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
 
             mimeHelper.setFrom(sender);
             mimeHelper.setTo(subscriber.getEmail());
-            mimeHelper.setSubject("Notic.ai");
-            mimeHelper.setText(content, true);
+            mimeHelper.setSubject(message.subject());
+            mimeHelper.setText(message.content(), true);
 
             mailSender.send(mimeMessage);
         }

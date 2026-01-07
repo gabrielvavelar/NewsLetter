@@ -16,4 +16,7 @@ public class Subscriber {
     @Column(unique = true, nullable = false)
     private String email;
     private UUID unsubscribeToken;
+
+    public Subscriber() {}
+    public Subscriber(String email) {this.email = email;}
 }

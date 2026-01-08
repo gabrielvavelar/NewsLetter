@@ -22,7 +22,7 @@ public class NewsService {
     public void sendNewsSummaryToSubscribers() {
         var subscribers = subscriberService.getAllSubscribers();
 
-        String summary = summaryService.generateSummary(newsFetcher.fetchLatestNews(20));
+        String summary = summaryService.generateSummary(newsFetcher.fetchLatestNews(10));
 
         for(Subscriber subscriber : subscribers) {
             MessageDto message = emailComposer.composeNewsSummaryEmail(subscriber, summary);

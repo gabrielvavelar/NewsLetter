@@ -71,7 +71,7 @@ class SummaryServiceTest {
 
         assertEquals(output, result);
     }
-    
+
     @Test
     void shouldThrowSummaryGenerationException() {
         List<NewsArticle> articles = List.of(

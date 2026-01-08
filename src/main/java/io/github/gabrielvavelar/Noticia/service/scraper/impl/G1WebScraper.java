@@ -2,9 +2,10 @@ package io.github.gabrielvavelar.Noticia.service.scraper.impl;
 
 import io.github.gabrielvavelar.Noticia.exception.NewsScrapingException;
 import io.github.gabrielvavelar.Noticia.model.NewsArticle;
+import io.github.gabrielvavelar.Noticia.service.scraper.HtmlLoader;
 import io.github.gabrielvavelar.Noticia.service.scraper.NewsFetcher;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +14,15 @@ import java.util.List;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class G1WebScraper implements NewsFetcher {
+
+    private final HtmlLoader htmlLoader;
 
     @Override
     public List<NewsArticle> fetchLatestNews(int limit) {
         try {
-            Document home = Jsoup.connect("https://g1.globo.com/")
-                    .userAgent("Mozilla/5.0")
-                    .get();
+            Document home = htmlLoader.load("https://g1.globo.com/");
 
             List<String> articleUrls = home.select("a[href]")
                     .stream()
@@ -34,7 +36,8 @@ public class G1WebScraper implements NewsFetcher {
 
             for (String url : articleUrls) {
                 try {
-                    Document article = Jsoup.connect(url).get();
+                    Document article = htmlLoader.load(url);
+
                     String title = article.select("h1").text();
                     String content = article.select("article").text();
 
